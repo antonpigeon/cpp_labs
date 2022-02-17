@@ -14,6 +14,5 @@ int main(){
         sum += nth_term(i);
     }
     cout << sum << endl;
-    cout << "pi^2/6 == " << 3.14158 * 3.14158 / 6 << endl;
     return 0;
 }

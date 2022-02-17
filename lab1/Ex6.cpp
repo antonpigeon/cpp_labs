@@ -16,10 +16,15 @@ int lcm(int a, int b){  // least common mmultiple
     return (a * b / gcd(a, b));
 }
 
-int main(){
+void run(){
     int a, b;
     cin >> a >> b;
     cout << "GCD(" << a << ", " << b << ") = " << gcd(a, b) << "\n";
     cout << "LCM(" << a << ", " << b << ") = " << lcm(a, b) << "\n";
+}
+int main(){
+    for (int i = 0; i < 1000; i++){
+        run();
+    }
     return 0;
 }
