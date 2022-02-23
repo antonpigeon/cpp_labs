@@ -19,6 +19,6 @@ int main(){
             r = mid;
         }
     }
-    cout << r << endl;
+    cout << (arr[r] == to_find) << endl;
     return 0;
 }
