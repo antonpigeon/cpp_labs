@@ -23,12 +23,13 @@ int main(){
     cout << setprecision(15) << fixed;
     float psi[1000];
     float pdf[1000];
-    float T = 1;
+    float T = M_PI;
     float dv = 0.01*sqrt(T);
     for(int i = 0; i < 1000; i++){ 
         psi[i] = abs((i-500)*dv);
         pdf[i] = exp(-((i- 500)*dv*(i - 500)*dv)/T);
     }
     cout << adjacent_sum(psi, pdf, dv, 1000)/sqrt(M_PI*T) << endl;
+cout << sqrt(T / M_PI) << endl;
     return 0;
 }

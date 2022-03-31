@@ -23,5 +23,6 @@ int main(){
         pdf[i] = exp(-((i- 500)*dv*(i - 500)*dv)/T);
     }
     cout << recursive_sum(psi, pdf, dv, 0, 1000)/sqrt(M_PI*T) << endl;
-    return 0;
+    cout << sqrt(T / M_PI) << endl;
+   return 0;
 }

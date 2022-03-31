@@ -6,17 +6,17 @@ using namespace std;
 
 float kahan_sum(float psi[], float pdf[], float dv, int length) {
     float sum = 0.0;
-    float c = 0.0;  // Сумма погрешностей.
+    float c = 0.0;
     float ans[length];
     for(int i = 0; i < length; i++){
         ans[i] = psi[i] * pdf[i] * dv;
     }           
     for (int i = 0; i < length; ++i) {
-        float y = ans[i] - c;    // Пока все хорошо: c - ноль.
-        float t = sum + y;         // Увы, sum велика, y мало, так что младшие разряды y потеряны.
-        c = (t - sum) - y;   // (t - sum) восстанавливает старшие разряды y; вычитание y восстанавливает -(младшие разряды y)
-        sum = t;             // Алгебраически, c всегда должна равняться нулю. Берегитесь слишком оптимизирующих компиляторов!
-    }                        // В следующий раз потерянные младшие разряды будут заново прибавлены к y.
+        float y = ans[i] - c;
+        float t = sum + y;
+        c = (t - sum) - y;
+        sum = t;
+    }
     return sum;
 }
 
