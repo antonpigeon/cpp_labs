@@ -50,10 +50,17 @@ struct List {
     }
 
     void pop(){
+        if(tail == nullptr){
+            return;
+        }
         Node* tmp = tail;
         tail = tail->prev;
-        tail->next = nullptr;
         delete tmp;
+        if(tail == nullptr){
+            head = nullptr;
+            return;
+        }
+        tail->next = nullptr;
     }
 
     void print_list(){
@@ -62,20 +69,62 @@ struct List {
             cout << current->field << " ";
             current = current->next;
         }
+        cout << endl;
     }
 
     void delete_list(){
-        Node* current = head->next;
-        while(current!=nullptr){
-            delete current->prev;
+        Node* current = head;
+        while(current!=nullptr && current->next != nullptr){
             current = current->next;
-
+            delete current->prev;
         }
         delete tail;
     }
-    Node* find_by_value(int value);
-    Node* find_by_index(int index);
-    Node* delete_by_value(int value);  // ->return pointer to node, else -- nullptr
+
+    Node* find_by_value(int value){
+        Node* current = head;
+        while(current != nullptr){
+            if (current->field == value){
+                return current;
+            }
+            current = current->next;
+        }
+        return nullptr;
+    }
+
+    Node* find_by_index(int index){
+        int i = 0;
+        Node* current = head;
+        while(current != nullptr){
+            if(i == index){
+                return current;
+            }
+            current = current->next;
+            i++;
+        }
+        return nullptr;
+    }
+
+    Node* delete_by_value(int value){
+        Node* current = head;
+        while(current != nullptr){
+            if (current->field == value){
+                if(!(current->prev == nullptr)){
+                    current->prev->next = current->next;                    
+                }
+                else{
+                    
+                }
+                if(!(current->next == nullptr)){
+                    current->next->prev = current->prev;
+                }
+                current->next->prev = current->prev;
+                return current;
+            }
+            current = current->next;
+        }
+        return nullptr;
+    }
     Node* delete_by_index(int index);  // ->return pointer to node, else -- nullptr
     int size();
 };
@@ -84,6 +133,7 @@ int main(){
     List lst = List(3);
     lst.append(2);
     lst.append(5);
+    lst.print_list();
     lst.pop();
     lst.print_list();
     lst.pop();
