@@ -118,15 +118,5 @@ class Matrix {
 
     private:
         int** mat;
-        int size;
-
-        
+        int size;        
 };
-
-int main(){
-    int array[16] = {0, 1, 2, 3, 4, 5, 6, 1, 8, 9, 7, 6, 5, 4, 3, 2};
-    Matrix my_mat = Matrix(array, 16);
-    my_mat.printMatrix();
-    std::cout << my_mat.calcDeterminant() << std::endl;
-    return 0;
-}
