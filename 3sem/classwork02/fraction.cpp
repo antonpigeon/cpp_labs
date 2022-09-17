@@ -4,7 +4,7 @@
 class Fraction {
     public:
         Fraction(int numerator, int denominator) : numerator(numerator), 
-                                                   denumerator(denumerator){}
+                                                   denominator(denominator){}
         
         Fraction(int numerator) : Fraction(numerator, 1) { }
         Fraction() = delete; 
@@ -42,7 +42,25 @@ class Fraction {
         }
 
         Fraction multByFracReturn(const Fraction& other) const{
-            return Fraction(numerator*other.numerator, denominator*other.denpminator);
+            return Fraction(numerator*other.numerator, denominator*other.denominator);
+        }
+        
+        void sumFrac(const Fraction& other){
+            numerator = numerator*other.denominator + denominator*other.numerator;
+            denominator *= other.denominator;
+        }
+
+        Fraction sumFracReturn(const Fraction& other) const{
+            return Fraction(numerator*other.denominator + denominator*other.numerator, denominator*other.denominator);
+        }
+
+        void diffFrac(const Fraction& other){
+            numerator = numerator*other.denominator - denominator*other.numerator;
+            denominator *= other.denominator;
+        }
+        
+        Fraction diffFracReturn(const Fraction& other) const{
+            return Fraction(numerator*other.denominator - denominator*other.numerator, denominator*other.denominator);
         }
         
         double calc() {
