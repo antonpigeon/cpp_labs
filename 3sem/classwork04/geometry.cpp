@@ -91,11 +91,3 @@ class Line: public Shape {
             return Point(storage[0].x/2 + storage[1].x/2, storage[0].y/2 + storage[1].y/2);
         }
 };
-
-int main(){
-    Point a(0, 0), b(5, 0), c(0, 5);
-    std::vector <Point> points = {a, b, c};
-    Triangle abc(points);
-    std::cout << abc.area() << " " << abc.perimeter() << " (" << abc.center().x << ", " << abc.center().y << ")" << std::endl;
-    return 0;
-}

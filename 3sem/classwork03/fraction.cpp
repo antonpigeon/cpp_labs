@@ -126,6 +126,6 @@ int main(){
     Fraction c = (a + b)*b - a;
     std::cout << a << std::endl;
     a.fracSimplify();
-    std::cout << a << " " << b << std::endl;
+    std::cout << c << std::endl;
     return 0;
 }

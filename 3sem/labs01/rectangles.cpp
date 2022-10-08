@@ -36,7 +36,7 @@ class Rectangle{
 
         Rectangle() : Rectangle({0, 0}){}
 
-        Rectangle operator+(Rectangle const &rha) const{
+        Rectangle operator+(Rectangle const &rha){
             if(is_dummy or rha.is_dummy){
                 std::cout << "You are adding a dummy rectangle!";
             }

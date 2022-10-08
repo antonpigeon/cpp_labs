@@ -1,6 +1,8 @@
 #include <random>
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <cassert>
 
 using State = int;
 
@@ -12,7 +14,7 @@ class GeneralState{
 
 class DescreteState : public GeneralState{
     private:
-        State const s0 = 0;
+        State s0 = 0;
     
     public:
         DescreteState(State s0) : s0(s0) { }
@@ -25,7 +27,7 @@ class DescreteState : public GeneralState{
 
 class SegmentState : public GeneralState{
     private:
-        State const beg, end;
+        State beg, end;
     
     public:
         SegmentState(State beg, State end) : beg(beg), end(end) { }
@@ -78,6 +80,7 @@ class ProbabilityTest{
 
             unsigned good = 0;
             for (unsigned cnt = 0; cnt < test_count; cnt++){
+                std::cout << cnt << " ";
                 if(system.contains(distr(reng))){
                     good++;
                 }
@@ -90,7 +93,17 @@ int main(){
     std::fstream f1("data.txt", std::ios::out);
     ProbabilityTest test(-1000, 1000);
     SegmentState seg(-501, 501);
-    unsigned tests_for_each = 10, seed = 1;
+    std::cout << 1 << " ";
+    std::vector<UnionState> unions;
+    std::cout << 2 << " ";
+    DescreteState a(-1000), b(998);
+    unions.push_back(UnionState(a, b));
+    std::cout << 3 << " ";
+    for(int i = 2; i < 1000; i++){
+        DescreteState c((i - 500)*2);
+        unions.push_back(UnionState(unions[i - 1], c)); 
+    }
+    /*unsigned tests_for_each = 10, seed = 1;
     unsigned max_test_count = 2000;
     for (unsigned test_count = 1; test_count <= max_test_count; test_count++){
         float sum = 0;
@@ -100,7 +113,25 @@ int main(){
         }
         sum /= tests_for_each;
         f1 << sum << std::endl;
+    }*/
+
+    std::fstream f2("data2.txt", std::ios::out);
+    unsigned tests_for_each = 50, seed = 1;
+    unsigned max_test_count = 2000;
+    std::cout << 4 << " ";
+    for (unsigned test_count = 1; test_count <= max_test_count; test_count++){
+        float sum = 0.;
+        for (unsigned i = 0; i < tests_for_each; i++){
+            std::cout << i << " ";
+            sum += test.test(unions.back(), test_count, seed);
+            std::cout << i << " ";
+            seed++;
+        }
+        sum /= tests_for_each;
+        f2 << sum << std::endl;
     }
+    f1.close();
+    f2.close();
     std::cout << "Program finished" << std::endl;
     return 0;
 }
