@@ -19,8 +19,8 @@ T* qsort_partition(T* begin, T* end, T pivot, Comparator<T> &comp){
         while(comp(*l_idx, pivot)) ++l_idx;
         while(comp(pivot, *r_idx)) --r_idx;
         std::cout << l_idx - begin << " " << r_idx - begin << std::endl; 
-        if(r_idx + 1 <= l_idx){
-            return r_idx + 1;
+        if(r_idx<= l_idx){
+            return r_idx;
         }
         std::swap(*(l_idx++), *(r_idx--));
     }
@@ -32,9 +32,15 @@ void quicksort(T* begin, T* end, Comparator<T> &comp){
     if(begin + 1 >= end){
         return;
     }
-    T* split_idx = qsort_partition<T>(begin, end, *(begin + (end - begin)/2), comp);
-    quicksort(begin, split_idx, comp);
-    quicksort(split_idx, end, comp);
+    if(end - begin == 2){
+        if(comp(*(begin + 1), *begin)){
+            std::swap(*begin, *(begin + 1));
+        }
+        return;
+    }
+    T* split_idx = qsort_partition<T>(begin, end, *(begin + (end - 1- begin)/2), comp);
+    quicksort(begin, split_idx + 1, comp);
+    quicksort(split_idx + 1, end, comp);
 }
 
 struct FloatComparator final: Comparator<float>{
@@ -48,9 +54,10 @@ struct Complex_number{
     float abs, arg;
 };
 
+
 struct ComplexComparator final: Comparator<Complex_number>{
     bool operator()(Complex_number const &lha, Complex_number const &rha) override{
-        return lha.abs < rha.abs ? true : lha.arg < rha.arg;
+        return (lha.abs < rha.abs) ? true : ((lha.abs > rha.abs) ? false : (lha.arg < rha.arg));
     }
 };
 
@@ -64,9 +71,12 @@ int main(){
     arr[3] = {2, 0.75*pi};
     arr[4] = {2, pi};
     arr[5] = {5, 1.5*pi};
+    //int arr[6] = {6, 5, 3, 1, 2, 4};
+    //IntComparator comp;
     quicksort(arr, arr + 6, comp);
     for(int i = 0; i < 6; i++){
-        std::cout << arr[i].abs << " " << arr[i].arg << "  ";
+        //std::cout << arr[i];
+        std::cout <<arr[i].abs << " " << arr[i].arg << " ";
     }
     std::cout << std::endl;
     return 0;
