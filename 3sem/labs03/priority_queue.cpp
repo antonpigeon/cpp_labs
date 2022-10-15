@@ -46,6 +46,9 @@ class PriorityQueue{
         }
 
         void poll(){
+            if(is_empty()){
+                return;
+            }
             vec[0] = vec.back();
             vec.pop_back();
             ShiftDown(0);
@@ -87,8 +90,6 @@ int main(){
     std::cout << queue.peek().abs << " " << queue.peek().arg <<std::endl;
     queue.poll();
     std::cout << queue.peek().abs << " " << queue.peek().arg <<std::endl;
-    int a = 3;
-std::cout << queue.peek().abs << " " << queue.peek().arg <<std::endl;
     //queue.poll();
     //queue.poll();
 }
